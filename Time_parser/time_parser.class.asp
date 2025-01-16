@@ -168,7 +168,7 @@ class listOutDates
 	'Function to divide a compact time
 	Private Function split_compact_time(time, selector)
 		Dim temp 
-		Select case selector
+		Select Case LCase(selector)
 			Case "h"
 				Select Case Len(time)
 					Case 1
@@ -260,14 +260,48 @@ class listOutDates
 	' s = Seconds
     Public Function time_parser(time, selector)
 		Dim character
+		Dim temp_contracted
 		character = recognize_character(time)
-		If Len(character) <> 0 Then 
-			Select Case Len(time) - len(replace(time, character, ""))
+		If Len(character) <> 0 Then
+			temp_contracted = replace(time, character, "")
+			Select Case Len(time) - Len(temp_contracted)
 				Case 1
-					Select Case selector
-						Case "h"
-						Case "m"
-						Case "s"
+					Select case Len(temp_contracted)
+						Case 2
+							Select Case LCase(selector)
+								Case "h"
+									Exit Function
+								Case "m"
+									Exit Function
+								Case "s"
+									Exit Function
+								Case Else
+									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+							End Select
+						Case 3
+							Select Case LCase(selector)
+								Case "h"
+									Exit Function
+								Case "m"
+									Exit Function
+								Case "s"
+									Exit Function
+								Case Else
+									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+							End Select
+						Case 4
+							Select Case LCase(selector)
+								Case "h"
+									Exit Function
+								Case "m"
+									Exit Function
+								Case "s"
+									Exit Function
+								Case Else
+									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+							End Select
+						Case Else 
+							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
 					End Select
 				Case 2
 					time_parser = replace(time, character, ":")
