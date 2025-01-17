@@ -260,42 +260,95 @@ class listOutDates
 	' s = Seconds
     Public Function time_parser(time, selector)
 		Dim character
-		Dim temp_contracted
+		Dim time_contracted
+		Dim temp 
 		character = recognize_character(time)
+		'Check if is present a special character
 		If Len(character) <> 0 Then
-			temp_contracted = replace(time, character, "")
-			Select Case Len(time) - Len(temp_contracted)
+			time_contracted = replace(time, character, "")
+			'Check the number of the characters 
+			Select Case Len(time) - Len(time_contracted)
 				Case 1
-					Select case Len(temp_contracted)
+					'Check the number of digits of the time without the character
+					Select case Len(time_contracted)
 						Case 2
-							Select Case LCase(selector)
-								Case "h"
-									Exit Function
-								Case "m"
-									Exit Function
-								Case "s"
-									Exit Function
-								Case Else
-									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
-							End Select
+							'Check if the character is between the digits
+							If InStr(time,character) = 2 Then 
+								'Check the selector value
+								Select Case LCase(selector)
+									Case "h"
+										temp = string_to_array(time)
+										time_parser = "0" temp(0) & ":0" & temp(1) & ":00" 
+										Exit Function
+									Case "m"
+										temp = string_to_array(time)
+										time_parser = "00:0" temp(0) & ":0" & temp(1) 
+										Exit Function
+									Case "s"
+										temp = string_to_array(time)
+										time_parser = "00:0" temp(0) & ":0" & temp(1)
+										Exit Function
+									Case Else
+										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+								End Select
+							Else
+								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+							End If 
 						Case 3
-							Select Case LCase(selector)
-								Case "h"
-									Exit Function
-								Case "m"
-									Exit Function
-								Case "s"
-									Exit Function
-								Case Else
-									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+							'Check the position of the character
+							Select Case InStr(time,character)
+								Case 2
+									'Check the selector value
+									Select Case LCase(selector)
+          								Case "h"
+											temp = string_to_array(time)
+											time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":00"
+          									Exit Function
+          								Case "m"
+											temp = string_to_array(time)
+											time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
+          									Exit Function
+          								Case "s"
+											temp = string_to_array(time)
+											time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
+          									Exit Function
+          								Case Else
+          									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+          							End Select
+								Case 3
+									'Check the selector value
+									Select Case LCase(selector)
+          								Case "h"
+											temp = string_to_array(time)
+											time_parser = temp(0) & temp(1) & ":0" & temp(2) & ":00"
+          									Exit Function
+          								Case "m"
+											temp = string_to_array(time)
+											time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
+          									Exit Function
+          								Case "s"
+											temp = string_to_array(time)
+											time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
+          									Exit Function
+          								Case Else
+          									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+          							End Select
+								Case Else 
+									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time") 
 							End Select
 						Case 4
 							Select Case LCase(selector)
 								Case "h"
+									temp = string_to_array(time)
+									time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00"
 									Exit Function
 								Case "m"
+									temp = string_to_array(time)
+									time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3) 
 									Exit Function
 								Case "s"
+									temp = string_to_array(time)
+									time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
 									Exit Function
 								Case Else
 									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
@@ -303,9 +356,21 @@ class listOutDates
 						Case Else 
 							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
 					End Select
+				'Case ther're two character
 				Case 2
-					time_parser = replace(time, character, ":")
-					Exit Function 
+					'Check the number of digits of the time without the character
+					Select Case Len(time_contracted)
+						Case 5
+							temp = string_to_array(time)
+							time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4)
+							Exit Function 
+						Case 6 
+							temp = string_to_array(time)
+							time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5)
+							Exit Function 
+						Case Else 
+							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+					End Select 
 				Case Else 
 					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
 			End Select
