@@ -165,6 +165,31 @@ class listOutDates
 		End if
 	End Function 
 
+	'Function to check if there are two identical characters 
+	Private Function check_consistency(time)
+		Dim character
+		character = recognize_character(time)
+		If Len(character) <> 0 Then 
+			If Len(time) >= 5 Then 
+				Dim temp 
+				temp = Right(time, Len(time) - InStr(time, character))
+				Dim second_character
+				second_character = recognize_character(temp)
+				If character = second_character Then 
+					check_consistency = character
+				Else
+					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+				End If 
+			Else
+				check_consistency = character
+				Exit Function
+			End If 
+		Else
+			check_consistency = character
+			Exit Function
+		End If 
+	End Function 
+
 	'Function to divide a compact time
 	Private Function split_compact_time(time, selector)
 		Dim temp 
@@ -262,7 +287,7 @@ class listOutDates
 		Dim character
 		Dim time_contracted
 		Dim temp 
-		character = recognize_character(time)
+		'character = recognize_character(time) <---------------------------------------------------------
 		'Check if is present a special character
 		If Len(character) <> 0 Then
 			time_contracted = replace(time, character, "")
