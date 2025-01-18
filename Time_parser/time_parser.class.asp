@@ -178,7 +178,7 @@ class listOutDates
 				If character = second_character Then 
 					check_consistency = character
 				Else
-					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+					check_consistency = replace(time, character, "")
 				End If 
 			Else
 				check_consistency = character
@@ -187,6 +187,23 @@ class listOutDates
 		Else
 			check_consistency = character
 			Exit Function
+		End If 
+	End Function 
+
+	'Function to check the position of the character 
+	Private Function check_character_position(time, character)
+		Dim position 
+		position = InStr(time, character)
+		Dim arr_time
+		arr_time = string_to_array(time)
+		If arr_time(0) = character and 0 = position - 1 Then 
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+		End If 
+		If arr_time(UBound(arr_time)) = character and UBound(arr_time) = position - 1 Then 
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+		End If
+		If arr_time(position - 1) = character and arr_time(position) = character Then 
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
 		End If 
 	End Function 
 
