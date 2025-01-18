@@ -169,10 +169,12 @@ class listOutDates
 	Private Function check_consistency(time)
 		Dim character
 		character = recognize_character(time)
+		check_character_position(time,character) 'Checking 
 		If Len(character) <> 0 Then 
 			If Len(time) >= 5 Then 
 				Dim temp 
 				temp = Right(time, Len(time) - InStr(time, character))
+				check_character_position(temp, character) 'Checking 
 				Dim second_character
 				second_character = recognize_character(temp)
 				If character = second_character Then 
@@ -303,31 +305,38 @@ class listOutDates
     Public Function time_parser(time, selector)
 		Dim character
 		Dim time_contracted
+		Dim my_time
 		Dim temp 
-		'character = recognize_character(time) <---------------------------------------------------------
+		character = check_consistency(time) 
 		'Check if is present a special character
 		If Len(character) <> 0 Then
-			time_contracted = replace(time, character, "")
+			my_time = time
+			'Check if character is a fixed time from check_consistency
+			If Len(time) = Len(character) Then 
+				my_time = character
+				character = recognize_character(my_time)
+			End If
+			time_contracted = replace(my_time, character, "")
 			'Check the number of the characters 
-			Select Case Len(time) - Len(time_contracted)
+			Select Case Len(my_time) - Len(my_time)
 				Case 1
 					'Check the number of digits of the time without the character
 					Select case Len(time_contracted)
 						Case 2
 							'Check if the character is between the digits
-							If InStr(time,character) = 2 Then 
+							If InStr(my_time,character) = 2 Then 
 								'Check the selector value
 								Select Case LCase(selector)
 									Case "h"
-										temp = string_to_array(time)
+										temp = string_to_array(my_time)
 										time_parser = "0" temp(0) & ":0" & temp(1) & ":00" 
 										Exit Function
 									Case "m"
-										temp = string_to_array(time)
+										temp = string_to_array(my_time)
 										time_parser = "00:0" temp(0) & ":0" & temp(1) 
 										Exit Function
 									Case "s"
-										temp = string_to_array(time)
+										temp = string_to_array(my_time)
 										time_parser = "00:0" temp(0) & ":0" & temp(1)
 										Exit Function
 									Case Else
@@ -338,20 +347,20 @@ class listOutDates
 							End If 
 						Case 3
 							'Check the position of the character
-							Select Case InStr(time,character)
+							Select Case InStr(my_time,character)
 								Case 2
 									'Check the selector value
 									Select Case LCase(selector)
           								Case "h"
-											temp = string_to_array(time)
+											temp = string_to_array(my_time)
 											time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":00"
           									Exit Function
           								Case "m"
-											temp = string_to_array(time)
+											temp = string_to_array(my_time)
 											time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
           									Exit Function
           								Case "s"
-											temp = string_to_array(time)
+											temp = string_to_array(my_time)
 											time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
           									Exit Function
           								Case Else
@@ -361,15 +370,15 @@ class listOutDates
 									'Check the selector value
 									Select Case LCase(selector)
           								Case "h"
-											temp = string_to_array(time)
+											temp = string_to_array(my_time)
 											time_parser = temp(0) & temp(1) & ":0" & temp(2) & ":00"
           									Exit Function
           								Case "m"
-											temp = string_to_array(time)
+											temp = string_to_array(my_time)
 											time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
           									Exit Function
           								Case "s"
-											temp = string_to_array(time)
+											temp = string_to_array(my_time)
 											time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
           									Exit Function
           								Case Else
@@ -381,15 +390,15 @@ class listOutDates
 						Case 4
 							Select Case LCase(selector)
 								Case "h"
-									temp = string_to_array(time)
+									temp = string_to_array(my_time)
 									time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00"
 									Exit Function
 								Case "m"
-									temp = string_to_array(time)
+									temp = string_to_array(my_time)
 									time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3) 
 									Exit Function
 								Case "s"
-									temp = string_to_array(time)
+									temp = string_to_array(my_time)
 									time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
 									Exit Function
 								Case Else
@@ -403,11 +412,11 @@ class listOutDates
 					'Check the number of digits of the time without the character
 					Select Case Len(time_contracted)
 						Case 5
-							temp = string_to_array(time)
+							temp = string_to_array(my_time)
 							time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4)
 							Exit Function 
 						Case 6 
-							temp = string_to_array(time)
+							temp = string_to_array(my_time)
 							time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5)
 							Exit Function 
 						Case Else 
@@ -417,7 +426,7 @@ class listOutDates
 					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
 			End Select
 		Else
-			time_parser = split_compact_time(time, selector)
+			time_parser = split_compact_time(my_time, selector)
 		End If
     End Function 
 End Class 
