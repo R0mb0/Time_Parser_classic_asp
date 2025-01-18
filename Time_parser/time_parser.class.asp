@@ -8,6 +8,22 @@ class listOutDates
 	Sub class_terminate()
 	End Sub
 
+	'Check a string is a time
+	Private Function IsTime(str)
+  		If str = "" Then
+    		IsTime = false
+  		Else
+    		On Error Resume Next
+    		TimeValue(str)
+    		If Err.number = 0 Then
+      			IsTime = true
+    		Else
+      			IsTime = false
+    		End if
+    		On Error GoTo 0
+  		End if
+	end function
+
 	'Function to transform a string into array
 	Private Function string_to_array(text)
 		Dim length
@@ -302,6 +318,7 @@ class listOutDates
 	' h = Hours
 	' m = Minutes
 	' s = Seconds
+	' TIME MUST BE IN 24H FORMAT
     Public Function time_parser(time, selector)
 		Dim character
 		Dim time_contracted
@@ -417,6 +434,7 @@ class listOutDates
 							Exit Function 
 						Case 6 
 							temp = string_to_array(my_time)
+							'------------------------------------------------------------- Here to complete 
 							time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5)
 							Exit Function 
 						Case Else 
@@ -426,7 +444,11 @@ class listOutDates
 					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
 			End Select
 		Else
-			time_parser = split_compact_time(my_time, selector)
+			If IsTime(split_compact_time(my_time, selector))
+				time_parser = split_compact_time(my_time, selector)
+			Else 
+				Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+			End If 
 		End If
     End Function 
 End Class 
