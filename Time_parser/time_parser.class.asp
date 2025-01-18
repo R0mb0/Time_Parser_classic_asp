@@ -197,13 +197,13 @@ class listOutDates
 		Dim arr_time
 		arr_time = string_to_array(time)
 		If arr_time(0) = character and 0 = position - 1 Then 
-			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
 		End If 
 		If arr_time(UBound(arr_time)) = character and UBound(arr_time) = position - 1 Then 
-			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
 		End If
 		If arr_time(position - 1) = character and arr_time(position) = character Then 
-			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
 		End If 
 	End Function 
 
@@ -236,7 +236,7 @@ class listOutDates
 						split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)
 						Exit Function
 					Case Else
-						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - Impossible to Split")
 				End Select 
 			Case "m"
 				Select Case Len(time)
@@ -263,7 +263,7 @@ class listOutDates
 						split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5) 
 						Exit Function
 					Case Else
-						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - Impossible to Split")
 				End Select 
 			Case "s"
 				Select Case Len(time)
@@ -289,10 +289,10 @@ class listOutDates
 						temp = string_to_array(time)
 						split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5) 
 					Case Else
-						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - Impossible to Split")
 				End Select 
 			Case Else
-				Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector")
+				Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - Impossible to Split")
 		End Select
 	End Function 
 
@@ -331,10 +331,10 @@ class listOutDates
 										time_parser = "00:0" temp(0) & ":0" & temp(1)
 										Exit Function
 									Case Else
-										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - For parser") 
 								End Select
 							Else
-								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
 							End If 
 						Case 3
 							'Check the position of the character
@@ -355,7 +355,7 @@ class listOutDates
 											time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
           									Exit Function
           								Case Else
-          									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+          									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - For parser") 
           							End Select
 								Case 3
 									'Check the selector value
@@ -373,10 +373,10 @@ class listOutDates
 											time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
           									Exit Function
           								Case Else
-          									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+          									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - For parser") 
           							End Select
 								Case Else 
-									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time") 
+									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser") 
 							End Select
 						Case 4
 							Select Case LCase(selector)
@@ -393,10 +393,10 @@ class listOutDates
 									time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
 									Exit Function
 								Case Else
-									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector") 
+									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - For parser") 
 							End Select
 						Case Else 
-							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
 					End Select
 				'Case ther're two character
 				Case 2
@@ -411,10 +411,10 @@ class listOutDates
 							time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5)
 							Exit Function 
 						Case Else 
-							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
 					End Select 
 				Case Else 
-					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time")
+					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
 			End Select
 		Else
 			time_parser = split_compact_time(time, selector)
