@@ -1,5 +1,5 @@
 <% 
-class listOutDates
+class timeParser
 
     ' Initialization and destruction'
 	Sub class_initialize()
@@ -39,143 +39,143 @@ class listOutDates
 
 	'Private Function to recognize the character that divide the time
 	Private Function recognize_character(time)
-		If InStr(0, time, ".") <> 0 Then 
+		If InStr(time, ".") <> 0 Then 
 			recognize_character = "."
 			Exit Function 
 		End if
-		If InStr(0, time, ",") <> 0 Then 
+		If InStr(time, ",") <> 0 Then 
 			recognize_character = ","
 			Exit Function
 		End if
-		If InStr(0, time, ":") <> 0 Then 
+		If InStr(time, ":") <> 0 Then 
 			recognize_character = ":"
 			Exit Function
 		End if
-		If InStr(0, time, ";") <> 0 Then 
+		If InStr(time, ";") <> 0 Then 
 			recognize_character = ";"
 			Exit Function
 		End if
-		If InStr(0, time, "`") <> 0 Then 
+		If InStr(time, "`") <> 0 Then 
 			recognize_character = "`"
 			Exit Function
 		End if
-		If InStr(0, time, "/") <> 0 Then 
+		If InStr(time, "/") <> 0 Then 
 			recognize_character = "/"
 			Exit Function
 		End if
-		If InStr(0, time, "\") <> 0 Then 
+		If InStr(time, "\") <> 0 Then 
 			recognize_character = "\"
 			Exit Function
 		End if
-		If InStr(0, time, "|") <> 0 Then 
+		If InStr(time, "|") <> 0 Then 
 			recognize_character = "|"
 			Exit Function
 		End if
-		If InStr(0, time, "_") <> 0 Then 
+		If InStr(time, "_") <> 0 Then 
 			recognize_character = "_"
 			Exit Function
 		End if
-		If InStr(0, time, "-") <> 0 Then 
+		If InStr(time, "-") <> 0 Then 
 			recognize_character = "-"
 			Exit Function
 		End if
-		If InStr(0, time, "~") <> 0 Then 
+		If InStr(time, "~") <> 0 Then 
 			recognize_character = "~"
 			Exit Function
 		End if
-		If InStr(0, time, "!") <> 0 Then 
+		If InStr(time, "!") <> 0 Then 
 			recognize_character = "!"
 			Exit Function
 		End if 
-		If InStr(0, time, "@") <> 0 Then 
+		If InStr(time, "@") <> 0 Then 
 			recognize_character = "@"
 			Exit Function
 		End if
-		If InStr(0, time, "#") <> 0 Then 
+		If InStr(time, "#") <> 0 Then 
 			recognize_character = "#"
 			Exit Function
 		End if
-		If InStr(0, time, "$") <> 0 Then 
+		If InStr(time, "$") <> 0 Then 
 			recognize_character = "$"
 			Exit Function
 		End if
-		If InStr(0, time, "%") <> 0 Then 
+		If InStr(time, "%") <> 0 Then 
 			recognize_character = "%"
 			Exit Function
 		End if
-		If InStr(0, time, "^") <> 0 Then 
+		If InStr(time, "^") <> 0 Then 
 			recognize_character = "^"
 			Exit Function
 		End if
-		If InStr(0, time, "&") <> 0 Then 
+		If InStr(time, "&") <> 0 Then 
 			recognize_character = "&"
 			Exit Function
 		End if
-		If InStr(0, time, "*") <> 0 Then 
+		If InStr(time, "*") <> 0 Then 
 			recognize_character = "*"
 			Exit Function
 		End if
-		If InStr(0, time, "(") <> 0 Then 
+		If InStr(time, "(") <> 0 Then 
 			recognize_character = "("
 			Exit Function
 		End if
-		If InStr(0, time, ")") <> 0 Then 
+		If InStr(time, ")") <> 0 Then 
 			recognize_character = ")"
 			Exit Function
 		End if
-		If InStr(0, time, "+") <> 0 Then 
+		If InStr(time, "+") <> 0 Then 
 			recognize_character = "+"
 			Exit Function
 		End if
-		If InStr(0, time, "=") <> 0 Then 
+		If InStr(time, "=") <> 0 Then 
 			recognize_character = "="
 			Exit Function
 		End if
-		If InStr(0, time, "{") <> 0 Then 
+		If InStr(time, "{") <> 0 Then 
 			recognize_character = "{"
 			Exit Function
 		End if
-		If InStr(0, time, "[") <> 0 Then 
+		If InStr(time, "[") <> 0 Then 
 			recognize_character = "["
 			Exit Function
 		End if
-		If InStr(0, time, "}") <> 0 Then 
+		If InStr(time, "}") <> 0 Then 
 			recognize_character = "}"
 			Exit Function
 		End if
-		If InStr(0, time, "]") <> 0 Then 
+		If InStr(time, "]") <> 0 Then 
 			recognize_character = "]"
 			Exit Function
 		End if
-		If InStr(0, time, "'") <> 0 Then 
+		If InStr(time, "'") <> 0 Then 
 			recognize_character = "'"
 			Exit Function
 		End if
-		If InStr(0, time, "<") <> 0 Then 
+		If InStr(time, "<") <> 0 Then 
 			recognize_character = "<"
 			Exit Function
 		End if
-		If InStr(0, time, ">") <> 0 Then 
+		If InStr(time, ">") <> 0 Then 
 			recognize_character = ">"
 			Exit Function
 		End if
-		If InStr(0, time, "e") <> 0 Then 
+		If InStr(time, "e") <> 0 Then 
 			recognize_character = "e"
 			Exit Function
 		End if
-		If InStr(0, time, "and") <> 0 Then 
+		If InStr(time, "and") <> 0 Then 
 			recognize_character = "and"
 			Exit Function
 		End if
-		If InStr(0, time, "()") <> 0 Then 
+		If InStr(time, "()") <> 0 Then 
 			recognize_character = "()"
 			Exit Function
 		End if
-		If InStr(0, time, "[]") <> 0 Then 
+		If InStr(time, "[]") <> 0 Then 
 			recognize_character = "[]"
 			Exit Function
 		End if
-		If InStr(0, time, "{}") <> 0 Then 
+		If InStr(time, "{}") <> 0 Then 
 			recognize_character = "{}"
 			Exit Function
 		End if
@@ -185,12 +185,12 @@ class listOutDates
 	Private Function check_consistency(time)
 		Dim character
 		character = recognize_character(time)
-		check_character_position(time,character) 'Checking 
+		check_character_position time, character 'Checking 
 		If Len(character) <> 0 Then 
 			If Len(time) >= 5 Then 
 				Dim temp 
 				temp = Right(time, Len(time) - InStr(time, character))
-				check_character_position(temp, character) 'Checking 
+				check_character_position temp, character 'Checking 
 				Dim second_character
 				second_character = recognize_character(temp)
 				If character = second_character Then 
@@ -213,6 +213,7 @@ class listOutDates
 		Dim position 
 		position = InStr(time, character)
 		Dim arr_time
+		arr_time = Array()
 		arr_time = string_to_array(time)
 		If arr_time(0) = character and 0 = position - 1 Then 
 			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
@@ -274,7 +275,7 @@ class listOutDates
 						Exit Function
 					Case 5
 						temp = string_to_array(time)
-						split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4)
+						split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
 						Exit Function
 					Case 6
 						temp = string_to_array(time)
@@ -293,15 +294,15 @@ class listOutDates
 						Exit Function
 					Case 3
 						temp = string_to_array(time)
-						split_compact_time = "00:0" & temp(0) & ":" temp(1) & temp(2)
+						split_compact_time = "00:0" & temp(0) & ":" & temp(1) & temp(2)
 						Exit Function
 					Case 4
 						temp = string_to_array(time)
-						split_compact_time = "00:" & temp(0) & temp(1) & ":" temp(2) & temp(3)
+						split_compact_time = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
 						Exit Function
 					Case 5
 						temp = string_to_array(time)
-						split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4)
+						split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
 						Exit Function
 					Case 6
 						temp = string_to_array(time)
@@ -346,24 +347,24 @@ class listOutDates
 								Select Case LCase(selector)
 									Case "h"
 										temp = string_to_array(my_time)
-										If IsTime("0" temp(0) & ":0" & temp(1) & ":00")
-  											time_parser = "0" temp(0) & ":0" & temp(1) & ":00"
+										If IsTime("0" & temp(0) & ":0" & temp(1) & ":00") Then 
+  											time_parser = "0" & temp(0) & ":0" & temp(1) & ":00"
 										Else 
   											Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
 										End If 
 										Exit Function
 									Case "m"
 										temp = string_to_array(my_time)
-										If IsTime("00:0" temp(0) & ":0" & temp(1))
-											time_parser = "00:0" temp(0) & ":0" & temp(1)
+										If IsTime("00:0" & temp(0) & ":0" & temp(1)) Then
+											time_parser = "00:0" & temp(0) & ":0" & temp(1)
 										Else 
   											Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
 										End If 
 										Exit Function
 									Case "s"
 										temp = string_to_array(my_time)
-										If IsTime("00:0" temp(0) & ":0" & temp(1))
-  											time_parser = "00:0" temp(0) & ":0" & temp(1)
+										If IsTime("00:0" & temp(0) & ":0" & temp(1)) Then
+  											time_parser = "00:0" & temp(0) & ":0" & temp(1)
 										Else 
   											Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
 										End If 
@@ -382,7 +383,7 @@ class listOutDates
 									Select Case LCase(selector)
           								Case "h"
 											temp = string_to_array(my_time)
-											If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":00")
+											If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":00") Then
   												time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":00"
 											Else 
   												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -390,7 +391,7 @@ class listOutDates
           									Exit Function
           								Case "m"
 											temp = string_to_array(my_time)
-											If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2))
+											If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2)) Then
   												time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
 											Else 
   												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -398,7 +399,7 @@ class listOutDates
           									Exit Function
           								Case "s"
 											temp = string_to_array(my_time)
-											If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2))
+											If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2)) Then
   												time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
 											Else 
   												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -412,7 +413,7 @@ class listOutDates
 									Select Case LCase(selector)
           								Case "h"
 											temp = string_to_array(my_time)
-											If IsTime(temp(0) & temp(1) & ":0" & temp(2) & ":00")
+											If IsTime(temp(0) & temp(1) & ":0" & temp(2) & ":00") Then
   												time_parser = temp(0) & temp(1) & ":0" & temp(2) & ":00"
 											Else 
   												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -420,7 +421,7 @@ class listOutDates
           									Exit Function
           								Case "m"
 											temp = string_to_array(my_time)
-											If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2))
+											If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2)) Then
   												time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
 											Else 
   												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -428,7 +429,7 @@ class listOutDates
           									Exit Function
           								Case "s"
 											temp = string_to_array(my_time)
-											If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2))
+											If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2)) Then
   												time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
 											Else 
   												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -444,7 +445,7 @@ class listOutDates
 							Select Case LCase(selector)
 								Case "h"
 									temp = string_to_array(my_time)
-									If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00")
+									If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00") Then
   										time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00"
 									Else 
   										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -452,7 +453,7 @@ class listOutDates
 									Exit Function
 								Case "m"
 									temp = string_to_array(my_time)
-									If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3))
+									If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)) Then
   										time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3) 
 									Else 
   										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -460,7 +461,7 @@ class listOutDates
 									Exit Function
 								Case "s"
 									temp = string_to_array(my_time)
-									If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3))
+									If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)) Then
   										time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
 									Else 
   										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
@@ -478,16 +479,16 @@ class listOutDates
 					Select Case Len(time_contracted)
 						Case 5
 							temp = string_to_array(my_time)
-							If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4))
-  								time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4)
+							If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)) Then
+  								time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
 							Else 
   								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
 							End If 
 							Exit Function 
 						Case 6 
 							temp = string_to_array(my_time)
-							If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5))
-								time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5)
+							If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)) Then
+								time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)
 							Else 
 								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
 							End If 
@@ -499,7 +500,7 @@ class listOutDates
 					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
 			End Select
 		Else
-			If IsTime(split_compact_time(my_time, selector))
+			If IsTime(split_compact_time(my_time, selector)) Then
 				time_parser = split_compact_time(my_time, selector)
 			Else 
 				Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
