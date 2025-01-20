@@ -346,15 +346,27 @@ class listOutDates
 								Select Case LCase(selector)
 									Case "h"
 										temp = string_to_array(my_time)
-										time_parser = "0" temp(0) & ":0" & temp(1) & ":00" 
+										If IsTime("0" temp(0) & ":0" & temp(1) & ":00")
+  											time_parser = "0" temp(0) & ":0" & temp(1) & ":00"
+										Else 
+  											Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+										End If 
 										Exit Function
 									Case "m"
 										temp = string_to_array(my_time)
-										time_parser = "00:0" temp(0) & ":0" & temp(1) 
+										If IsTime("00:0" temp(0) & ":0" & temp(1))
+											time_parser = "00:0" temp(0) & ":0" & temp(1)
+										Else 
+  											Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+										End If 
 										Exit Function
 									Case "s"
 										temp = string_to_array(my_time)
-										time_parser = "00:0" temp(0) & ":0" & temp(1)
+										If IsTime("00:0" temp(0) & ":0" & temp(1))
+  											time_parser = "00:0" temp(0) & ":0" & temp(1)
+										Else 
+  											Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+										End If 
 										Exit Function
 									Case Else
 										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - For parser") 
@@ -370,15 +382,27 @@ class listOutDates
 									Select Case LCase(selector)
           								Case "h"
 											temp = string_to_array(my_time)
-											time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":00"
+											If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":00")
+  												time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":00"
+											Else 
+  												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+											End If 
           									Exit Function
           								Case "m"
 											temp = string_to_array(my_time)
-											time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
+											If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2))
+  												time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
+											Else 
+  												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+											End If 
           									Exit Function
           								Case "s"
 											temp = string_to_array(my_time)
-											time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
+											If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2))
+  												time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
+											Else 
+  												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+											End If 
           									Exit Function
           								Case Else
           									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - For parser") 
@@ -388,15 +412,27 @@ class listOutDates
 									Select Case LCase(selector)
           								Case "h"
 											temp = string_to_array(my_time)
-											time_parser = temp(0) & temp(1) & ":0" & temp(2) & ":00"
+											If IsTime(temp(0) & temp(1) & ":0" & temp(2) & ":00")
+  												time_parser = temp(0) & temp(1) & ":0" & temp(2) & ":00"
+											Else 
+  												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+											End If 
           									Exit Function
           								Case "m"
 											temp = string_to_array(my_time)
-											time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
+											If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2))
+  												time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
+											Else 
+  												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+											End If 
           									Exit Function
           								Case "s"
 											temp = string_to_array(my_time)
-											time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
+											If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2))
+  												time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
+											Else 
+  												Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+											End If 
           									Exit Function
           								Case Else
           									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - For parser") 
@@ -408,15 +444,27 @@ class listOutDates
 							Select Case LCase(selector)
 								Case "h"
 									temp = string_to_array(my_time)
-									time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00"
+									If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00")
+  										time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00"
+									Else 
+  										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+									End If 
 									Exit Function
 								Case "m"
 									temp = string_to_array(my_time)
-									time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3) 
+									If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3))
+  										time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3) 
+									Else 
+  										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+									End If 
 									Exit Function
 								Case "s"
 									temp = string_to_array(my_time)
-									time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
+									If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3))
+  										time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
+									Else 
+  										Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+									End If 
 									Exit Function
 								Case Else
 									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad selector - For parser") 
@@ -430,12 +478,19 @@ class listOutDates
 					Select Case Len(time_contracted)
 						Case 5
 							temp = string_to_array(my_time)
-							time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4)
+							If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4))
+  								time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" temp(3) & temp(4)
+							Else 
+  								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
 							Exit Function 
 						Case 6 
 							temp = string_to_array(my_time)
-							'------------------------------------------------------------- Here to complete 
-							time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5)
+							If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5))
+								time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" temp(4) & temp(5)
+							Else 
+								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
 							Exit Function 
 						Case Else 
 							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
