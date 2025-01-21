@@ -34,7 +34,7 @@ class timeParser
 		For index = 0 to length - 1
     		outArray(index) = Left(Right(text,(length - index)), (1))
 		Next 
-		stringToArray = outArray
+		string_to_array = outArray
 	End Function
 
 	'Private Function to recognize the character that divide the time
@@ -181,13 +181,30 @@ class timeParser
 		End if
 	End Function 
 
+	'Function to check the position of the character 
+	Private Function check_character_position(time, character)
+		Dim position 
+		position = InStr(time, character)
+		Dim arr_time
+		arr_time = string_to_array(time)
+		If arr_time(0) = character and 0 = position - 1 Then 
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
+		End If 
+		If arr_time(UBound(arr_time)) = character and UBound(arr_time) = position - 1 Then 
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
+		End If
+		If arr_time(position - 1) = character and arr_time(position) = character Then 
+			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
+		End If 
+	End Function 
+
 	'Function to check if there are two identical characters 
 	Private Function check_consistency(time)
 		Dim character
 		character = recognize_character(time)
 		check_character_position time, character 'Checking 
 		If Len(character) <> 0 Then 
-			If Len(time) >= 5 Then 
+			If Len(time) > 5 Then 
 				Dim temp 
 				temp = Right(time, Len(time) - InStr(time, character))
 				check_character_position temp, character 'Checking 
@@ -205,24 +222,6 @@ class timeParser
 		Else
 			check_consistency = character
 			Exit Function
-		End If 
-	End Function 
-
-	'Function to check the position of the character 
-	Private Function check_character_position(time, character)
-		Dim position 
-		position = InStr(time, character)
-		Dim arr_time
-		arr_time = Array()
-		arr_time = string_to_array(time)
-		If arr_time(0) = character and 0 = position - 1 Then 
-			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
-		End If 
-		If arr_time(UBound(arr_time)) = character and UBound(arr_time) = position - 1 Then 
-			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
-		End If
-		If arr_time(position - 1) = character and arr_time(position) = character Then 
-			Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - character position")
 		End If 
 	End Function 
 
@@ -336,7 +335,7 @@ class timeParser
 			End If
 			time_contracted = replace(my_time, character, "")
 			'Check the number of the characters 
-			Select Case Len(my_time) - Len(my_time)
+			Select Case Len(my_time) - Len(time_contracted)
 				Case 1
 					'Check the number of digits of the time without the character
 					Select case Len(time_contracted)
@@ -346,7 +345,7 @@ class timeParser
 								'Check the selector value
 								Select Case LCase(selector)
 									Case "h"
-										temp = string_to_array(my_time)
+										temp = string_to_array(time_contracted)
 										If IsTime("0" & temp(0) & ":0" & temp(1) & ":00") Then 
   											time_parser = "0" & temp(0) & ":0" & temp(1) & ":00"
 										Else 
@@ -354,7 +353,7 @@ class timeParser
 										End If 
 										Exit Function
 									Case "m"
-										temp = string_to_array(my_time)
+										temp = string_to_array(time_contracted)
 										If IsTime("00:0" & temp(0) & ":0" & temp(1)) Then
 											time_parser = "00:0" & temp(0) & ":0" & temp(1)
 										Else 
@@ -362,7 +361,7 @@ class timeParser
 										End If 
 										Exit Function
 									Case "s"
-										temp = string_to_array(my_time)
+										temp = string_to_array(time_contracted)
 										If IsTime("00:0" & temp(0) & ":0" & temp(1)) Then
   											time_parser = "00:0" & temp(0) & ":0" & temp(1)
 										Else 
@@ -382,7 +381,7 @@ class timeParser
 									'Check the selector value
 									Select Case LCase(selector)
           								Case "h"
-											temp = string_to_array(my_time)
+											temp = string_to_array(time_contracted)
 											If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":00") Then
   												time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":00"
 											Else 
@@ -390,7 +389,7 @@ class timeParser
 											End If 
           									Exit Function
           								Case "m"
-											temp = string_to_array(my_time)
+											temp = string_to_array(time_contracted)
 											If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2)) Then
   												time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
 											Else 
@@ -398,7 +397,7 @@ class timeParser
 											End If 
           									Exit Function
           								Case "s"
-											temp = string_to_array(my_time)
+											temp = string_to_array(time_contracted)
 											If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2)) Then
   												time_parser = "00:0" & temp(0) & ":" & temp(1) & temp(2)
 											Else 
@@ -412,7 +411,7 @@ class timeParser
 									'Check the selector value
 									Select Case LCase(selector)
           								Case "h"
-											temp = string_to_array(my_time)
+											temp = string_to_array(time_contracted)
 											If IsTime(temp(0) & temp(1) & ":0" & temp(2) & ":00") Then
   												time_parser = temp(0) & temp(1) & ":0" & temp(2) & ":00"
 											Else 
@@ -420,7 +419,7 @@ class timeParser
 											End If 
           									Exit Function
           								Case "m"
-											temp = string_to_array(my_time)
+											temp = string_to_array(time_contracted)
 											If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2)) Then
   												time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
 											Else 
@@ -428,7 +427,7 @@ class timeParser
 											End If 
           									Exit Function
           								Case "s"
-											temp = string_to_array(my_time)
+											temp = string_to_array(time_contracted)
 											If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2)) Then
   												time_parser = "00:" & temp(0) & temp(1) & ":0" & temp(2)
 											Else 
@@ -444,7 +443,7 @@ class timeParser
 						Case 4
 							Select Case LCase(selector)
 								Case "h"
-									temp = string_to_array(my_time)
+									temp = string_to_array(time_contracted)
 									If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00") Then
   										time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00"
 									Else 
@@ -452,7 +451,7 @@ class timeParser
 									End If 
 									Exit Function
 								Case "m"
-									temp = string_to_array(my_time)
+									temp = string_to_array(time_contracted)
 									If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)) Then
   										time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3) 
 									Else 
@@ -460,7 +459,7 @@ class timeParser
 									End If 
 									Exit Function
 								Case "s"
-									temp = string_to_array(my_time)
+									temp = string_to_array(time_contracted)
 									If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)) Then
   										time_parser = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
 									Else 
@@ -478,7 +477,7 @@ class timeParser
 					'Check the number of digits of the time without the character
 					Select Case Len(time_contracted)
 						Case 5
-							temp = string_to_array(my_time)
+							temp = string_to_array(time_contracted)
 							If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)) Then
   								time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
 							Else 
@@ -486,7 +485,7 @@ class timeParser
 							End If 
 							Exit Function 
 						Case 6 
-							temp = string_to_array(my_time)
+							temp = string_to_array(time_contracted)
 							If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)) Then
 								time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)
 							Else 
