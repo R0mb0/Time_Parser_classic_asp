@@ -232,26 +232,67 @@ class timeParser
 			Case "h"
 				Select Case Len(time)
 					Case 1
-						split_compact_time = "0" & time & ":00:00"
+						If IsTime("0" & time & ":00:00") Then
+							split_compact_time = "0" & time & ":00:00"
+						Else 
+  							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If 
 						Exit Function
 					Case 2
-						split_compact_time = time & ":00:00"
+						If IsTime(time & ":00:00") Then
+							split_compact_time = time & ":00:00"
+						Else 
+							temp = string_to_array(time)
+  							If IsTime("0" & temp(0) & ":" & temp(1) & "0:00") Then
+								split_compact_time = "0" & temp(0) & ":" & temp(1) & "0:00"
+							Else 
+  								If IsTime("0" & temp(0) & ":0" & temp(1) & ":00") Then
+									split_compact_time = "0" & temp(0) & ":0" & temp(1) & ":00"
+								Else 
+  									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+								End If 
+							End If 
+						End If 
 						Exit Function
 					Case 3
 						temp = string_to_array(time)
-						split_compact_time = temp(0) & temp(1) & ":" & "0" & temp(2) & ":00"
+						If IsTime(temp(0) & temp(1) & ":" & "0" & temp(2) & ":00") Then
+							split_compact_time = temp(0) & temp(1) & ":" & "0" & temp(2) & ":00"
+						Else 
+							If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":00") Then
+								split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":00"
+							Else 
+  								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
+						End If 
 						Exit Function
 					Case 4
 						temp = string_to_array(time)
-						split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00"
+						If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00") Then
+							split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":00"
+						Else 
+  							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If 
 						Exit Function
 					Case 5
 						temp = string_to_array(time)
-						split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":0" & temp(4)
+						If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":0" & temp(4)) Then
+							split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":0" & temp(4)
+						Else 
+  							If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)) Then
+								split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
+							Else 
+  								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
+						End If 
 						Exit Function
 					Case 6
 						temp = string_to_array(time)
-						split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)
+						If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)) Then
+							split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)
+						Else 
+  							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If 
 						Exit Function
 					Case Else
 						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - Impossible to Split")
@@ -259,26 +300,67 @@ class timeParser
 			Case "m"
 				Select Case Len(time)
 					Case 1
-						split_compact_time = "00:0" & time & ":00"
+						If IsTime("00:0" & time & ":00") Then
+							split_compact_time = "00:0" & time & ":00"
+						Else 
+  							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If 
 						Exit Function
 					Case 2
-						split_compact_time = "00:" & time & ":00"
+						If IsTime("00:" & time & ":00") Then
+							split_compact_time = "00:" & time & ":00"
+						Else 
+							temp = string_to_array(time)
+  							If IsTime("00:0" & time(0) & ":" & time(1) & "0") Then
+								split_compact_time = "00:0" & time(0) & ":" & time(1) & "0"
+							Else 
+  								If IsTime("00:0" & temp(0) & ":" & "0" & temp(1)) Then
+									split_compact_time = "00:0" & temp(0) & ":" & "0" & temp(1)
+								Else 
+  									Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+								End If 
+							End If 
+						End If 
 						Exit Function
 					Case 3
 						temp = string_to_array(time)
-						split_compact_time = "00:" & temp(0) & temp(1) & ":0" & temp(2) 
+						If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2)) Then
+							split_compact_time = "00:" & temp(0) & temp(1) & ":0" & temp(2) 
+						Else 
+  							If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2)) Then
+								split_compact_time = "00:0" & temp(0) & ":" & temp(1) & temp(2) 
+							Else 
+  								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
+						End If 
 						Exit Function
 					Case 4
 						temp = string_to_array(time)
-						split_compact_time = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
+						If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)) Then
+							split_compact_time = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
+						Else 
+  							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If 
 						Exit Function
 					Case 5
 						temp = string_to_array(time)
-						split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
+						If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)) Then
+							split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
+						Else 
+  							If IsTime() Then
+								split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":0" & temp(4)
+							Else 
+  								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
+						End If 
 						Exit Function
 					Case 6
 						temp = string_to_array(time)
-						split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5) 
+						If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)) Then
+							split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5) 
+						Else 
+  							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If 
 						Exit Function
 					Case Else
 						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - Impossible to Split")
@@ -286,26 +368,63 @@ class timeParser
 			Case "s"
 				Select Case Len(time)
 					Case 1
-						split_compact_time = "00:00:0" & time
+						If IsTime("00:00:0" & time) Then
+							split_compact_time = "00:00:0" & time
+						Else 
+  							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If 
 						Exit Function
 					Case 2
-						split_compact_time = "00:00:" & time
+						If IsTime("00:00:" & time) Then
+							split_compact_time = "00:00:" & time
+						Else 
+							temp = string_to_array(time)
+  							If IsTime("00:0" & temp(0) & ":0" & temp(1)) Then
+								split_compact_time = "00:0" & temp(0) & ":0" & temp(1)
+							Else 
+  								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
+						End If 
 						Exit Function
 					Case 3
 						temp = string_to_array(time)
-						split_compact_time = "00:0" & temp(0) & ":" & temp(1) & temp(2)
+						If IsTime("00:0" & temp(0) & ":" & temp(1) & temp(2)) Then
+							split_compact_time = "00:0" & temp(0) & ":" & temp(1) & temp(2)
+						Else 
+  							If IsTime("00:" & temp(0) & temp(1) & ":0" & temp(2)) Then
+								split_compact_time = "00:" & temp(0) & temp(1) & ":0" & temp(2)
+							Else 
+  								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
+						End If 
 						Exit Function
 					Case 4
 						temp = string_to_array(time)
-						split_compact_time = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
+						If IsTime("00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)) Then
+							split_compact_time = "00:" & temp(0) & temp(1) & ":" & temp(2) & temp(3)
+						Else 
+  							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If 
 						Exit Function
 					Case 5
 						temp = string_to_array(time)
-						split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
+						If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)) Then
+							split_compact_time = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
+						Else 
+  							If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":0" & temp(4)) Then
+								split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":0" & temp(4)
+							Else 
+  								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+							End If 
+						End If 
 						Exit Function
 					Case 6
 						temp = string_to_array(time)
-						split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5) 
+						If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5) ) Then
+							split_compact_time = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & temp(4) & temp(5)
+						Else
+							Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
+						End If  
 					Case Else
 						Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - Impossible to Split")
 				End Select 
@@ -478,8 +597,8 @@ class timeParser
 					Select Case Len(time_contracted)
 						Case 5
 							temp = string_to_array(time_contracted)
-							If IsTime("0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)) Then
-  								time_parser = "0" & temp(0) & ":" & temp(1) & temp(2) & ":" & temp(3) & temp(4)
+							If IsTime(temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & "0" & temp(4)) Then
+  								time_parser = temp(0) & temp(1) & ":" & temp(2) & temp(3) & ":" & "0" & temp(4)
 							Else 
   								Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
 							End If 
@@ -499,11 +618,7 @@ class timeParser
 					Call Err.Raise(vbObjectError + 10, "time_parser.class", "Bad time - For parser")
 			End Select
 		Else
-			If IsTime(split_compact_time(my_time, selector)) Then
-				time_parser = split_compact_time(my_time, selector)
-			Else 
-				Call Err.Raise(vbObjectError + 10, "time_parser.class", "Time is not possible")
-			End If 
+				time_parser = split_compact_time(time, selector)
 		End If
     End Function 
 End Class 
