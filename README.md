@@ -9,6 +9,7 @@
 [![Donate](https://img.shields.io/badge/PayPal-Donate%20to%20Author-blue.svg)](http://paypal.me/R0mb0)
 
 ## `time_parser.class.asp`'s avaible functions
+
 - Funtion to parse a time by a selector used to understand the time -> `Public Function time_parser(time, selector)`
   >
   > - <ins>Where the selector could be:</ins>
