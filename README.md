@@ -22,7 +22,7 @@
 > From `Test.asp`
 
 1. Initialize the class
-   ```
+   ```asp
    <%@LANGUAGE="VBSCRIPT"%>
    <!--#include file="time_parser.class.asp"-->
    <%
@@ -30,7 +30,7 @@
       set my_time = new timeParser
    ```
 2. Parse times
-   ```
+   ```asp
      Dim temp
    
      temp = "16:15:13"
